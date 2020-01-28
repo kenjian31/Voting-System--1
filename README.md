@@ -1,2 +1,2 @@
 # repo-Team5
-Team5's repository (Chen, Hao, Huang, Wang)
+Team5 repository (Pengyin Chen, Shuai Hao, Junren Huang, Jian Wang)
