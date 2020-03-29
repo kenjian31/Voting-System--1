@@ -1,0 +1,20 @@
+===========================
+This is Plurality Algorithm
+Total seats: 2
+Total candidates: 4
+Total Ballots: 5000
+
+Assign each ballot to their desire candidate
+
+sort candidates by their vote count 
+
+There is no tie condition
+Winners:Candidate name is: D
+Ballot percentage:  0.28
+Candidate name is: R
+Ballot percentage:  0.28
+
+Losers:Candidate name is: G
+Ballot percentage:  0.24
+Candidate name is: I
+Ballot percentage:  0.2
