@@ -1,12 +1,24 @@
+/*
+ * VotingType.java
+ * Copyright (c) 2020, CSCI5801 Team5. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ */
 package vs;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
-abstract class VotingType {
+/**
+ * This is an abstract class 
+ * as the base class of Plurality and STV 
+ * it contains ReadFile() methods 
+ * and an abstract function GenerateAudit() to be overrided 
+ * @author Pengyin Chen 
+ *
+ */
+public abstract class VotingType {
+	// necessary data needs to be maintained 
 	public ArrayList<Candidate> candidateList = new ArrayList<Candidate>();
 	public ArrayList<Ballot> ballotList = new ArrayList<Ballot>(); 
 	public int ballotCount = 0;
@@ -14,15 +26,20 @@ abstract class VotingType {
 	public String fileName;
 	public int total_seat;
 	public int shuffle_flag=1;
-	// read file content
-	// parse candidates and ballots
-	// create candidates and ballots objects and store them in two lists
+
+	/**
+	 * read file content
+	 * parse candidates and ballots
+	 * create candidates and ballots objects and store them in two lists
+	 * @throws IOException write file may cause exception 
+	 */
 	public void ReadFile() throws IOException {
 		System.out.println("===========================\n");
 		System.out.println("start reading file\n\n");
 		File file = new File(fileName); 
 		BufferedReader br = new BufferedReader(new FileReader(file)); 
 		String st; 
+		// parse candidate 
 		st = br.readLine(); 
 		String[] candidateNameList = st.split(",");
 		System.out.println("create Candidate objects\n\n");
@@ -30,6 +47,7 @@ abstract class VotingType {
 			candidateList.add(new Candidate(candidateNameList[i]));
 		}
 		System.out.println("create Callot objects\n");
+		//parse ballots 
 		while ((st = br.readLine()) != null) {
 			String[] voteListString = st.split(",");
 			int[] votelist = new int[voteListString.length];
@@ -41,11 +59,14 @@ abstract class VotingType {
 				}
 			}
 			ballotList.add(new Ballot(++ballotCount, votelist));
-			
-	  	}
+
+		}
 		System.out.println("read file completed\n");
 		br.close();
 	}
-	
+	/**
+	 * GenerateAudit() is an abstract method to be override
+	 * @throws IOException write file may cause exception 
+	 */
 	public abstract void GenerateAudit() throws IOException;
 }
