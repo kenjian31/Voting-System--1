@@ -1,10 +1,10 @@
-/*
-* @file:TextAreaOutputStream.java
-* @function: an output stream that writes its output to a javax.swing.JTextArea
-* control.
-* @author: Pengyin Chen
-*/
 package vs;
+
+/*
+*
+* @(#) TextAreaOutputStream.java
+*
+*/
 
 import java.io.IOException;
 import java.io.OutputStream;
