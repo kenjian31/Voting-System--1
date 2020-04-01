@@ -68,7 +68,7 @@ public class Plurality extends VotingType{
 		// generate audit file to read
 		String current = new java.io.File( "." ).getCanonicalPath();
 		String auditFileLocation = current+"/src/vs/audit.txt";
-		System.out.print(auditFileLocation);
+		
 		FileWriter fileWriter = new FileWriter(auditFileLocation);
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 
@@ -82,7 +82,19 @@ public class Plurality extends VotingType{
 
 		System.out.println(introString);
 		printWriter.printf(introString);
-
+		
+		//seats number is 0
+		if(total_seat ==0) {
+			System.out.println("Seats Number is 0");
+			System.out.println("Voting System done");
+			System.out.println("\n\n================\n");
+			System.out.println("Audit File finished");
+			System.out.println("Path: " + auditFileLocation);
+			printWriter.close();
+			return;
+			
+		}
+		
 		// if total seats is greater than or equal to the number of candidates 
 		// declare all candidates as winners 
 		if (candidateList.size() <= total_seat) {
@@ -91,17 +103,21 @@ public class Plurality extends VotingType{
 			System.out.println(str);
 			printWriter.printf(str);
 
-			for (int i = 0; i < total_seat; i++) {
+			for (int i = 0; i < candidateList.size(); i++) {
 				winner.add(candidateList.get(i));
 			}
 			System.out.println("\n"+"Winners:");
 			printWriter.printf("\n"+"Winners:");
+			//print winner info to users and write it to files 
 			for (int i =0; i< winner.size(); i++) {
 				System.out.println(winner.get(i)+ "Ballot percentage: "
 						+" "+(winner.get(i).count_ballot/(double)ballotList.size())+"\n");
 				printWriter.printf(winner.get(i)+ "Ballot percentage: "
 						+" "+(winner.get(i).count_ballot/(double)ballotList.size())+"\n");
 			}
+			System.out.println("================\n");
+			System.out.println("Audit File finished");
+			System.out.println("Path: " + auditFileLocation);
 			printWriter.close();
 			return;
 		}

@@ -45,6 +45,7 @@ public abstract class VotingType {
 		System.out.println("create Candidate objects\n\n");
 		for (int i =0; i< candidateNameList.length; i++) {
 			candidateList.add(new Candidate(candidateNameList[i]));
+			candidateCount++;
 		}
 		System.out.println("create Callot objects\n");
 		//parse ballots 

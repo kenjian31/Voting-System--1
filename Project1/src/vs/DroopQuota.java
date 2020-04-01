@@ -68,7 +68,6 @@ public class DroopQuota extends VotingType {
 		// generate audit file to read
 		String current = new java.io.File( "." ).getCanonicalPath();
 		String auditFileLocation = current+"/src/vs/audit.txt";
-		System.out.print(auditFileLocation);
 		FileWriter fileWriter = new FileWriter(auditFileLocation);
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 
@@ -81,7 +80,18 @@ public class DroopQuota extends VotingType {
 
 		System.out.println(introString);
 		printWriter.printf(introString);
-
+		
+		//seats number is 0
+		if(total_seat ==0) {
+			System.out.println("Seats Number is 0");
+			System.out.println("Voting System done");
+			System.out.println("\n\n================\n");
+			System.out.println("Audit File finished");
+			System.out.println("Path: " + auditFileLocation);
+			printWriter.close();
+			return;
+			
+		}
 		// if seats number is greater than or equal to the number of candidates 
 		// declare all candidates as winners
 		if (candidateList.size() <= total_seat) {
@@ -90,15 +100,20 @@ public class DroopQuota extends VotingType {
 			System.out.println(str);
 			printWriter.printf(str);
 
-			for (int i = 0; i < total_seat; i++) {
+			for (int i = 0; i < candidateList.size(); i++) {
 				winner.add(candidateList.get(i));
 			}
 			System.out.println("\n"+"Winners:");
 			printWriter.printf("\n"+"Winners:");
+			
 			for (int i =0; i< winner.size(); i++) {
 				System.out.println(winner.get(i));
 				printWriter.printf("\n"+winner.get(i));
 			}
+			
+			System.out.println("================\n");
+			System.out.println("Audit File finished");
+			System.out.println("Path: " + auditFileLocation);
 			printWriter.close();
 			return;
 		}
@@ -194,10 +209,14 @@ public class DroopQuota extends VotingType {
 			printWriter.printf("\n"+"redistribute ballots the candidates with the least ballots");
 
 			// remove the candidate with the least ballots 
-			//redistribute his ballots to other non-winner candidate 
+			// redistribute his ballots to other non-winner candidate 
 			for (int i =0; i < loser.get(loser.size() -1).ballot_list.size(); i++) {
+				///Users/frankchen/Desktop/team5/repo-Team5/Project1/testing/plurality_test_5000b_4c.csv
+				loser.get(loser.size() -1).ballot_list.get(i).choice++;
+				
 				for (int j =0; j <loser.get(loser.size() -1).ballot_list.get(i).vote_list.length; 
 						j++) {
+					
 					if (loser.get(loser.size() -1).ballot_list.get(i).vote_list[j] 
 							== loser.get(loser.size() -1).ballot_list.get(i).choice && 
 							winner.contains(candidateList.get(j))) {
@@ -207,11 +226,20 @@ public class DroopQuota extends VotingType {
 					if (loser.get(loser.size() -1).ballot_list.get(i).vote_list[j] 
 							== loser.get(loser.size() -1).ballot_list.get(i).choice && 
 							!winner.contains(candidateList.get(j)) &&
-							loser.contains(candidateList.get(loser.get(loser.size() -1).ballot_list.get(i).choice))) {
+									loser.contains(candidateList.get(j))) {
 						candidateList.get(j).AddBallot(ballotList.get(i));
+					}
+					for (int k =0 ; k< candidateList.size(); k ++) {
+						if (candidateList.get(k).count_ballot >= droop_q && 
+								!winner.contains(candidateList.get(k))) {
+							winner.add(candidateList.get(k));
+							loser.remove(candidateList.get(k));
+						}
+
 					}
 				}
 			}
+			loser.remove(loser.get(loser.size() -1));
 
 			//display each round info 
 			System.out.println("\n"+round+"st Round finished" );
