@@ -138,7 +138,10 @@ public class DroopQuota extends VotingType {
 						winner.add(candidateList.get(k));
 						loser.remove(candidateList.get(k));
 					}
-				}	
+				}
+				if(winner.size() >= total_seat) {
+					break;
+				}
 
 			}
 
@@ -149,7 +152,7 @@ public class DroopQuota extends VotingType {
 		printWriter.printf("\n"+"Winners so far:");
 		for (int i =0; i< winner.size(); i++) {
 			System.out.println(winner.get(i));
-			printWriter.printf(winner.get(i).toString()+ "\nBallots received: ");
+			printWriter.printf("\n"+winner.get(i).toString()+ "\nBallots received: ");
 			for(int q =0; q< winner.get(i).ballot_list.size(); q++) {
 				printWriter.printf(winner.get(i).ballot_list.get(q).toString());
 			}
@@ -158,7 +161,7 @@ public class DroopQuota extends VotingType {
 		printWriter.printf("\n"+"Loser so far:");
 		for (int i =0; i< loser.size(); i++) {
 			System.out.println(loser.get(i));
-			printWriter.printf(loser.get(i).toString()+ "\nBallots received: ");
+			printWriter.printf("\n"+loser.get(i).toString()+ "\nBallots received: ");
 			for(int q =0; q< loser.get(i).ballot_list.size(); q++) {
 				printWriter.printf(loser.get(i).ballot_list.get(q).toString());
 			}

@@ -54,5 +54,36 @@ class PluralityTest {
 		assertEquals(myTest2.ballotCount, 100);
        	
 	}
+	@Test
+	public void testPluralityGenerateAudit() throws IOException {
+		String current = new java.io.File( "." ).getCanonicalPath();
+		String testFileLocation = current+"/testing/plurality_test_5000b_4c.csv";
+		
+		Plurality myTest = new Plurality(4, testFileLocation);
+		assertEquals(myTest.winner.size(), 0);
+		myTest.ReadFile();
+		myTest.GenerateAudit();
+		assertEquals(myTest.winner.size(), 4);
+		
+		Plurality myTest2 = new Plurality(0, testFileLocation);
+		assertEquals(myTest2.winner.size(), 0);
+		myTest2.ReadFile();
+		myTest2.GenerateAudit();
+		assertEquals(myTest2.winner.size(), 0);
+		
 
+		//random case 
+		Plurality myTest3 = new Plurality(1, testFileLocation);
+		assertEquals(myTest3.winner.size(), 0);
+		myTest3.ReadFile();
+		myTest3.GenerateAudit();
+		assertEquals(myTest3.winner.size(), 1);
+
+		Plurality myTest4 = new Plurality(1000, testFileLocation);
+		assertEquals(myTest4.winner.size(), 0);
+		myTest4.ReadFile();
+		myTest4.GenerateAudit();
+		assertEquals(myTest4.winner.size(), 4);
+       	
+	}
 }

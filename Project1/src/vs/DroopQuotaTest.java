@@ -21,6 +21,7 @@ class DroopQuotaTest {
 		myTest.ReadFile();
 		assertEquals(myTest.candidateCount, 7);
 		assertEquals(myTest.ballotCount, 20);
+	
 	}
 
 }
