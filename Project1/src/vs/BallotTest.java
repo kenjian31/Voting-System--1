@@ -19,7 +19,6 @@ class BallotTest {
 		String result2 = test2.toString();
 		String result3 = test3.toString();
 		
-	
 		assertNotSame(Exresult1, result1);
 		assertNotSame(Exresult2, result2);
 		assertNotSame(Exresult3, result3);
