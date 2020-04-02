@@ -1,28 +1,46 @@
+/*
+ * Plurality.java
+ * Copyright (c) 2020, CSCI5801 Team5. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ */
 package vs;
-
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import javax.swing.text.StyledEditorKit.ForegroundAction;
 
-import javafx.scene.shape.Path;
-
-
+/**
+ * This class functions as the Plurality Algorithm
+ * it consists RandomWinner() and GenerateAudit() methods
+ * so that it could randomly select winner when there is a tie
+ * and display details to users 
+ * @author Pengyin Chen 
+ *
+ */
 public class Plurality extends VotingType{
-	int total_voter = ballotList.size();
+	// winner list 
 	ArrayList<Candidate> winner = new ArrayList<Candidate>();
 
+	/**
+	 * constructor method 
+	 * @param seat total seats 
+	 * @param f file name for reading 
+	 */
 	public Plurality(int seat, String f) {
 		total_seat = seat;
 		fileName = f;
 	}
 
+	/**
+	 * this method takes a candidate list and an integer number
+	 * and randomly swap the candidate list 
+	 * add the first couple candidates to the winner as we need 
+	 * @param result tie candidates 
+	 * @param length number of candidates we need 
+	 */
 	public void RandomWinner(ArrayList<Candidate> result, int length) {
 
 		Random rand = new Random();
@@ -43,6 +61,10 @@ public class Plurality extends VotingType{
 
 
 	@Override
+	/**
+	 * GenerateAudit() will run the plurality algorithm 
+	 * display and info 
+	 */
 	public void GenerateAudit() throws IOException {
 		// generate audit file to read
 		String current = new java.io.File( "." ).getCanonicalPath();
@@ -51,7 +73,7 @@ public class Plurality extends VotingType{
 		FileWriter fileWriter = new FileWriter(auditFileLocation);
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 
-
+		// display algorithm info 
 		String introString = "===========================\n" +
 				"This is Plurality Algorithm\n" +
 				"Total seats: " + total_seat+ "\n" +
@@ -61,7 +83,9 @@ public class Plurality extends VotingType{
 		System.out.println(introString);
 		printWriter.printf(introString);
 
-		//seats number is 0
+		// when seats number is 0
+		//display warning 
+		//system done 
 		if(total_seat ==0) {
 			System.out.println("Seats Number is 0");
 			System.out.println("Voting System done");
@@ -175,12 +199,15 @@ public class Plurality extends VotingType{
 			}
 
 
-		} else { // if there is no tie 
+		} else { 
+			// if there is no tie 
+			// add the first couple candidates to winners 
 			System.out.println("\n"+ "There is no tie condition");
 			printWriter.printf("\n"+ "There is no tie condition");
 			for (int i = 0; i < total_seat; i++) {
 				winner.add(candidateList.get(i));
 			}
+			// display winners and losers 
 			System.out.println("\n"+"Winners:");
 			printWriter.printf("\n"+"Winners:");
 			for (int i =0; i< winner.size(); i++) {
@@ -201,6 +228,8 @@ public class Plurality extends VotingType{
 				}
 			}
 
+			// in audit file 
+			// write details of ballots info into the file 
 			printWriter.printf("\n\nDetail of each candidate\n");
 			for (int k=0; k< candidateList.size(); k++) {
 
@@ -216,15 +245,4 @@ public class Plurality extends VotingType{
 		System.out.println("Path: " + auditFileLocation);
 		printWriter.close();
 	}
-//	public static void main(String[] args) {
-//		VotingType vt = new Plurality(1, "/Users/frankchen/Desktop/team5/repo-Team5/Project1/testing/DQ_test_20b_7c.csv");
-//		try {
-//			vt.ReadFile();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//
-//	}
 }

@@ -1,11 +1,22 @@
+/*
+ * VotingType.java
+ * Copyright (c) 2020, CSCI5801 Team5. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ */
 package vs;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
+/**
+ * This is an abstract class 
+ * as the base class of Plurality and STV 
+ * it contains ReadFile() methods 
+ * and an abstract function GenerateAudit() to be overrided 
+ * @author Pengyin Chen 
+ *
+ */
 abstract class VotingType {
 	public ArrayList<Candidate> candidateList = new ArrayList<Candidate>();
 	public ArrayList<Ballot> ballotList = new ArrayList<Ballot>(); 
@@ -42,11 +53,15 @@ abstract class VotingType {
 				}
 			}
 			ballotList.add(new Ballot(++ballotCount, votelist));
-			
-	  	}
+
+		}
 		System.out.println("read file completed\n");
 		br.close();
 	}
-	
+
+	/**
+	 * GenerateAudit() is an abstract method to be override
+	 * @throws IOException write file may cause exception 
+	 */
 	public abstract void GenerateAudit() throws IOException;
 }

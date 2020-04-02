@@ -1,16 +1,12 @@
-package vs;
-
 /*
-*
-* @(#) TextAreaOutputStream.java
-*
-*/
-
+ * TextAreaOutputStream.java
+ * Copyright (c) 2020, CSCI5801 Team5. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ */
+package vs;
 import java.io.IOException;
 import java.io.OutputStream;
 import javax.swing.JTextArea;
-
-
 
 public class TextAreaOutputStream extends OutputStream {
     private JTextArea textControl;

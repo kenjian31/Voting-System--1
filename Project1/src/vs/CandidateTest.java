@@ -1,12 +1,23 @@
+/*
+ * CandidateTest.java
+ * Copyright (c) 2020, CSCI5801 Team5. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ */
 package vs;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
-
+/**
+ * test Candidate class
+ * @author Pengyin Chen
+ *
+ */
 class CandidateTest {
 
 	@Test
+	/**
+	 * test constrcutor 
+	 */
 	public void testConstrcutor() {
 		Candidate c1 = new Candidate("Tony");
 		Candidate c2 = new Candidate("Sue");
@@ -18,6 +29,9 @@ class CandidateTest {
 	
 
 	@Test
+	/**
+	 * test addBallot() method 
+	 */
 	public void testAddBallot() {
 		Candidate c1 = new Candidate("Tony");
 		int[] list = new int[] {1,2,3,4,5};
@@ -29,6 +43,9 @@ class CandidateTest {
 	}
 	
 	 @Test
+	 /**
+	  * test compareTo override method 
+	  */
 	    public void testcompareTo() {
 	    	Candidate c1 = new Candidate("Tony");
 	    	Candidate c2 = new Candidate("k");
@@ -55,6 +72,9 @@ class CandidateTest {
 	    }
 	 
 	    @Test
+	    /**
+	     * test toString override method 
+	     */
 	    public void testToString() {
 	    	Candidate c1 = new Candidate("Tony");
 	        String Exresult = "Candidate name is: Tony\n";

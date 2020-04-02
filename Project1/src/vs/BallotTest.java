@@ -1,12 +1,23 @@
+/*
+ * BallotTest.java
+ * Copyright (c) 2020, CSCI5801 Team5. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ */
 package vs;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
-
+/**
+ * test Ballot class 
+ * @author Pengyin Chen
+ *
+ */
 class BallotTest {
 
 	@Test
+	/**
+	 * test constructor 
+	 */
 	public void testBallotConstrcutor() {
 		int[] list = new int[] {1,2,3,4,5};
 		String Exresult1 = "1 ";
@@ -24,6 +35,9 @@ class BallotTest {
 		assertNotSame(Exresult3, result3);
 	}
 	@Test
+	/**
+	 * test vote list 
+	 */
 	public void testBallotVoteList() {
 		int[] list1 = new int[] {1,2,3,4,5};
 		int[] list2 = new int[100];
@@ -56,6 +70,9 @@ class BallotTest {
 	}
 
 	@Test
+	/**
+	 * test toString override function 
+	 */
 	public void testToString() {
 		int[] list1 = new int[] {1,2,3,4,5};
 		int[] list2 = new int[100];

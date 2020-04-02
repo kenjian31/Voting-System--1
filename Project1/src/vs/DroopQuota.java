@@ -1,20 +1,34 @@
+/*
+ * DroopQuota.java
+ * Copyright (c) 2020, CSCI5801 Team5. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ */
 package vs;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
 import java.util.Collections;
 import java.util.Random;
-
-import com.sun.org.apache.bcel.internal.generic.DREM;
-import com.sun.org.apache.bcel.internal.generic.LNEG;
-
-
+/**
+ * This class functions as the STV Droop Quota Algorithm
+ * it consists Shuffle() and GenerateAudit() methods
+ * so that it could shuffle ballots and display details to users 
+ * it also write info into audit file when the algorithm is running
+ * @author Pengyin Chen
+ * @author Junren Huang
+ *
+ */
 public class DroopQuota extends VotingType {
+	// winner and loser list
 	ArrayList<Candidate> winner = new ArrayList<Candidate>();
 	ArrayList<Candidate> loser = new ArrayList<Candidate>();
 
+	/**
+	 * this is the constructor 
+	 * @param seats: total seats we have 
+	 * @param f : file name for reading 
+	 */
 	public DroopQuota(int seats, String f) {
 		total_seat = seats;
 		fileName = f;
@@ -32,7 +46,19 @@ public class DroopQuota extends VotingType {
 		}
 	} 
 
-
+	/**
+	 * this is the GenerateAudit() method 
+	 * for the first round
+	 * it will assign ballots to candidate 
+	 * and check if someone reach the droop number
+	 * if a ballot's choice is a winner, then choice + 1
+	 * for the second round and so on 
+	 * remove candidates in the loser list with the least ballots
+	 * redistribute his ballots to other non-winner candidate
+	 * repeat until all seats are filled 
+	 * alone the way running the program 
+	 * write info to audit file and display the location when finished 
+	 */
 	public void GenerateAudit() throws IOException {
 		// generate audit file to read
 		String current = new java.io.File( "." ).getCanonicalPath();
@@ -40,6 +66,7 @@ public class DroopQuota extends VotingType {
 		FileWriter fileWriter = new FileWriter(auditFileLocation);
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 
+		//display vote type info
 		String introString = "===========================\n" +
 				"This is STV Droop Quota Algorithm\n" +
 				"Total seats: " + total_seat+ "\n" +
@@ -147,6 +174,7 @@ public class DroopQuota extends VotingType {
 			}
 
 		}
+		//display first round info
 		System.out.println("1st Round finished");
 		System.out.println("\n"+"Winners so far:");
 		printWriter.printf("1st Round finished");
@@ -168,13 +196,14 @@ public class DroopQuota extends VotingType {
 			}
 		}
 
+		// start second round and so on when seat is not filled
 		int round = 2; 
 		while(winner.size()<total_seat && loser.size()!=0) {
 			System.out.println("\n"+round+"st Round:" );
 			System.out.println("\n"+"sort loser list" );
 			printWriter.printf("\n"+round+"st Round:");
 
-
+			// sort losers in descending order 
 			Collections.sort(loser);
 
 			System.out.println("\n"+"redistribute ballots from the candidates with the least ballots" );
@@ -189,9 +218,9 @@ public class DroopQuota extends VotingType {
 					loser.get(loser.size() -1).ballot_list.get(i).choice++;
 					if(loser.get(loser.size() -1).ballot_list.get(i).vote_list.length != 0) {
 						for (int j =0; j <candidateCount; j++) {
-							System.out.println(loser.get(loser.size() -1).ballot_list.get(i).vote_list[j]);
+
 							if ((loser.get(loser.size() -1).ballot_list.get(i).vote_list[j] ==
-									 loser.get(loser.size() -1).ballot_list.get(i).choice )&& 
+									loser.get(loser.size() -1).ballot_list.get(i).choice )&& 
 									winner.contains(candidateList.get(j))) {
 								loser.get(loser.size() -1).ballot_list.get(i).choice++;
 								continue;
@@ -215,10 +244,11 @@ public class DroopQuota extends VotingType {
 					}
 				}
 			}
+			// after redistribute 
+			// remove the last candidate from the loser 
 			loser.remove(loser.get(loser.size() -1));
 
 			//display each round info 
-
 			System.out.println("\n"+round+"st Round finished" );
 			printWriter.printf("\n"+round+"st Round finished" );
 
@@ -251,18 +281,13 @@ public class DroopQuota extends VotingType {
 
 			}
 		}
-
+		// display end of the system 
 		System.out.println("================\n");
 		System.out.println("Audit File finished");
 		System.out.println("Path: " + auditFileLocation);
 		printWriter.close();
 
 	}
-
-	//	public static void main(String[] args) {
-	//		DroopQuota dp = new DroopQuota(4,"/Users/frankchen/Desktop/team5/repo-Team5/Project1/testing/plurality_test_5000b_4c.csv");
-	//		System.out.println("Run");
-	//	}
 }
 
 

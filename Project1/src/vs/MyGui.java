@@ -1,5 +1,9 @@
+/*
+ * MyGui.java
+ * Copyright (c) 2020, CSCI5801 Team5. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ */
 package vs;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -12,7 +16,12 @@ import java.io.PrintStream;
 import java.util.PrimitiveIterator.OfDouble;
 
 import javax.swing.*;
-
+/**
+ * interface
+ * @author Pengyin Chen 
+ * @author Shuai Hao
+ *
+ */
 public class MyGui extends JFrame implements ActionListener {
 	/**
 	 * 

@@ -1,17 +1,27 @@
+/*
+ * PluralityTest.java
+ * Copyright (c) 2020, CSCI5801 Team5. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ */
 package vs;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.File;
 import java.io.IOException;
-
 import org.junit.jupiter.api.Test;
-
+/**
+ * test Plurality Algorithm 
+ * @author Pengyin Chen 
+ *
+ */
 class PluralityTest {
 
 
 	@Test
-    public void testPluralitySeats() throws IOException {
+	/**
+	 * test constructor
+	 * @throws IOException
+	 */
+	public void testPluralityConstructor() throws IOException {
 		
 		// test file 
 		// 5000 ballots 
@@ -34,6 +44,10 @@ class PluralityTest {
 	}
 	
 	@Test
+	/**
+	 * test Plurality ReadFile method 
+	 * @throws IOException
+	 */
     public void testPluralityReadFile() throws IOException {
 		String current = new java.io.File( "." ).getCanonicalPath();
 		String testFileLocation = current+"/testing/plurality_test_5000b_4c.csv";
@@ -55,6 +69,10 @@ class PluralityTest {
        	
 	}
 	@Test
+	/**
+	 * test GenerateAudit() mehtod
+	 * @throws IOException
+	 */
 	public void testPluralityGenerateAudit() throws IOException {
 		String current = new java.io.File( "." ).getCanonicalPath();
 		String testFileLocation = current+"/testing/plurality_test_5000b_4c.csv";
