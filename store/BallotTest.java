@@ -1,5 +1,7 @@
 package vs;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -81,5 +83,5 @@ class BallotTest {
 		String result2 = test3.toString();
 		assertEquals("100 ", result2);
 	}
-
 }
+		

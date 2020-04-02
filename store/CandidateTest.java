@@ -1,6 +1,9 @@
 package vs;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
@@ -71,4 +74,5 @@ class CandidateTest {
 	        String result2 = c3.toString();
 	        assertEquals(Exresult2, result2);
 	    }
+
 }

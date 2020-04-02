@@ -17,16 +17,16 @@ import javafx.scene.shape.Path;
 public class Plurality extends VotingType{
 	int total_voter = ballotList.size();
 	ArrayList<Candidate> winner = new ArrayList<Candidate>();
-	
+
 	public Plurality(int seat, String f) {
 		total_seat = seat;
 		fileName = f;
 	}
-	
-	public void RandomWinner(ArrayList<Candidate> result, int length) throws IOException {
-		
+
+	public void RandomWinner(ArrayList<Candidate> result, int length) {
+
 		Random rand = new Random();
-		
+
 		// random swap tie candidates 
 		// add candidates to the winner list as we need in order 
 		// for example, if we need two candidates 
@@ -35,34 +35,32 @@ public class Plurality extends VotingType{
 			int randomIndexToSwap = rand.nextInt(result.size()-1);
 			Collections.swap(result, i, randomIndexToSwap);
 		}
-		
+
 		for (int i =0; i < length; i++) {
 			winner.add(result.get(i));
 		}
 	}
-	
+
 
 	@Override
 	public void GenerateAudit() throws IOException {
 		// generate audit file to read
 		String current = new java.io.File( "." ).getCanonicalPath();
 		String auditFileLocation = current+"/src/vs/audit.txt";
-		
+
 		FileWriter fileWriter = new FileWriter(auditFileLocation);
-	    PrintWriter printWriter = new PrintWriter(fileWriter);
-	    
-		
-		// TODO Auto-generated method stub
+		PrintWriter printWriter = new PrintWriter(fileWriter);
+
+
 		String introString = "===========================\n" +
 				"This is Plurality Algorithm\n" +
 				"Total seats: " + total_seat+ "\n" +
 				"Total candidates: " + candidateList.size()+ "\n"+
 				"Total Ballots: " + ballotList.size()+ "\n";
-		
+
 		System.out.println(introString);
 		printWriter.printf(introString);
-<<<<<<< HEAD
-		
+
 		//seats number is 0
 		if(total_seat ==0) {
 			System.out.println("Seats Number is 0");
@@ -72,27 +70,23 @@ public class Plurality extends VotingType{
 			System.out.println("Path: " + auditFileLocation);
 			printWriter.close();
 			return;
-			
+
 		}
-		
+
 		// if total seats is greater than or equal to the number of candidates 
 		// declare all candidates as winners 
-=======
->>>>>>> 106d72586a33a0fe41570fad25f493c33ecff1af
+
 		if (candidateList.size() <= total_seat) {
 			String str = "total seats is great than or equal to the number of candidates\n"
 					+ "All candidates are winners";
 			System.out.println(str);
 			printWriter.printf(str);
-<<<<<<< HEAD
+
 
 			for (int i = 0; i < candidateList.size(); i++) {
-=======
-			
-			for (int i = 0; i < total_seat; i++) {
->>>>>>> 106d72586a33a0fe41570fad25f493c33ecff1af
 				winner.add(candidateList.get(i));
 			}
+
 			System.out.println("\n"+"Winners:");
 			printWriter.printf("\n"+"Winners:");
 			//print winner info to users and write it to files 
@@ -118,16 +112,16 @@ public class Plurality extends VotingType{
 				}
 			}
 		}
-		
+
 		System.out.println("\nsort candidates by their vote count \n");
 		printWriter.printf("\nsort candidates by their vote count \n");
 		// sort candidates by their vote count 
-		 Collections.sort(candidateList);
-		
-		 // check if there are ties
+		Collections.sort(candidateList);
+
+		// check if there are ties
 		int tie_count = -1;
 		ArrayList<Candidate> tieCandidates = new ArrayList<Candidate>();
-		
+
 		// check the candidates at the boundary condition 
 		// if the next candidate has the same ballot count
 		// there exists a tie
@@ -141,7 +135,7 @@ public class Plurality extends VotingType{
 				}
 			}	
 		}
-		
+
 		// if there is a tie 
 		if (tie_count > 0) {
 			System.out.println("\n"+ "There is a tie condition");
@@ -150,40 +144,37 @@ public class Plurality extends VotingType{
 			for (i =0; candidateList.get(i).count_ballot > tie; i++) {
 				winner.add(candidateList.get(i));
 			}
-			try {
-				RandomWinner(tieCandidates, total_seat - winner.size());
-				System.out.println("\n"+"Winners:");
-				printWriter.printf("\n"+"Winners:");
-				for (int j =0; j< winner.size(); j++) {
-					System.out.println(winner.get(j)+ "Ballot percentage: "
-							+" "+(winner.get(j).count_ballot/(double)ballotList.size())+"\n");
-					printWriter.printf(winner.get(j)+ "Ballot percentage: "
-							+" "+(winner.get(j).count_ballot/(double)ballotList.size())+"\n");
-				}
-				System.out.println("\n"+"Losers:");
-				printWriter.printf("\n"+"Losers:");
-				for (int j =0; j< candidateList.size(); j++) {
-					if(!winner.contains(candidateList.get(j))) {
-						System.out.println(candidateList.get(j)+ "Ballot percentage: "
-							+" "+(candidateList.get(j).count_ballot/(double)ballotList.size())+"\n");
-						printWriter.printf(candidateList.get(j)+ "Ballot percentage: "
-								+" "+(candidateList.get(j).count_ballot/(double)ballotList.size())+"\n");
-					}
-				}
-				
-				printWriter.printf("\n\nDetail of each candidate\n");
-				for (int k=0; k< candidateList.size(); k++) {
-					printWriter.printf("\n\n"+candidateList.get(k).toString() + "\n");
-					printWriter.printf("Ballots: ");
-					for(int q =0; q< candidateList.get(k).ballot_list.size(); q++) {
-						printWriter.printf(candidateList.get(k).ballot_list.get(q).toString());
-					}
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+			RandomWinner(tieCandidates, total_seat - winner.size());
+			System.out.println("\n"+"Winners:");
+			printWriter.printf("\n"+"Winners:");
+			for (int j =0; j< winner.size(); j++) {
+				System.out.println(winner.get(j)+ "Ballot percentage: "
+						+" "+(winner.get(j).count_ballot/(double)ballotList.size())+"\n");
+				printWriter.printf(winner.get(j)+ "Ballot percentage: "
+						+" "+(winner.get(j).count_ballot/(double)ballotList.size())+"\n");
 			}
-			
+			System.out.println("\n"+"Losers:");
+			printWriter.printf("\n"+"Losers:");
+			for (int j =0; j< candidateList.size(); j++) {
+				if(!winner.contains(candidateList.get(j))) {
+					System.out.println(candidateList.get(j)+ "Ballot percentage: "
+							+" "+(candidateList.get(j).count_ballot/(double)ballotList.size())+"\n");
+					printWriter.printf(candidateList.get(j)+ "Ballot percentage: "
+							+" "+(candidateList.get(j).count_ballot/(double)ballotList.size())+"\n");
+				}
+			}
+
+			printWriter.printf("\n\nDetail of each candidate\n");
+			for (int k=0; k< candidateList.size(); k++) {
+				printWriter.printf("\n\n"+candidateList.get(k).toString() + "\n");
+				printWriter.printf("Ballots: ");
+				for(int q =0; q< candidateList.get(k).ballot_list.size(); q++) {
+					printWriter.printf(candidateList.get(k).ballot_list.get(q).toString());
+				}
+			}
+
+
 		} else { // if there is no tie 
 			System.out.println("\n"+ "There is no tie condition");
 			printWriter.printf("\n"+ "There is no tie condition");
@@ -198,21 +189,21 @@ public class Plurality extends VotingType{
 				printWriter.printf(winner.get(i)+ "Ballot percentage: "
 						+" "+(winner.get(i).count_ballot/(double)ballotList.size())+"\n");
 			}
-			
+
 			System.out.println("\n"+"Losers:");
 			printWriter.printf("\n"+"Losers:");
 			for (int j =0; j< candidateList.size(); j++) {
 				if(!winner.contains(candidateList.get(j))) {
 					System.out.println(candidateList.get(j)+ "Ballot percentage: "
-						+" "+(candidateList.get(j).count_ballot/(double)ballotList.size())+"\n");
-				printWriter.printf(candidateList.get(j)+ "Ballot percentage: "
-						+" "+(candidateList.get(j).count_ballot/(double)ballotList.size())+"\n");
+							+" "+(candidateList.get(j).count_ballot/(double)ballotList.size())+"\n");
+					printWriter.printf(candidateList.get(j)+ "Ballot percentage: "
+							+" "+(candidateList.get(j).count_ballot/(double)ballotList.size())+"\n");
 				}
 			}
-			
+
 			printWriter.printf("\n\nDetail of each candidate\n");
 			for (int k=0; k< candidateList.size(); k++) {
-				
+
 				printWriter.printf(candidateList.get(k).toString() + "\n");
 				printWriter.printf("Ballots: ");
 				for(int q =0; q< candidateList.get(k).ballot_list.size(); q++) {
@@ -239,6 +230,6 @@ public class Plurality extends VotingType{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    
+
 	}
 }
