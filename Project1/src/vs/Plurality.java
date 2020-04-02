@@ -216,20 +216,15 @@ public class Plurality extends VotingType{
 		System.out.println("Path: " + auditFileLocation);
 		printWriter.close();
 	}
-	public static void main(String[] args) {
-		VotingType vt = new Plurality(1, "/Users/frankchen/Desktop/team5/repo-Team5/Project1/src/vs/test.csv");
-		try {
-			vt.ReadFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			vt.GenerateAudit();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+//	public static void main(String[] args) {
+//		VotingType vt = new Plurality(1, "/Users/frankchen/Desktop/team5/repo-Team5/Project1/testing/DQ_test_20b_7c.csv");
+//		try {
+//			vt.ReadFile();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//
+//	}
 }

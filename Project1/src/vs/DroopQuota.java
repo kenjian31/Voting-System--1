@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Random;
 
 import com.sun.org.apache.bcel.internal.generic.DREM;
+import com.sun.org.apache.bcel.internal.generic.LNEG;
 
 
 public class DroopQuota extends VotingType {
@@ -176,38 +177,40 @@ public class DroopQuota extends VotingType {
 
 			Collections.sort(loser);
 
-			System.out.println("\n"+"redistribute ballots the candidates with the least ballots" );
-			printWriter.printf("\n"+"redistribute ballots the candidates with the least ballots");
+			System.out.println("\n"+"redistribute ballots from the candidates with the least ballots" );
+			printWriter.printf("\n"+"redistribute ballots from the candidates with the least ballots");
 
 
 			// remove the candidate with the least ballots 
 			// redistribute his ballots to other non-winner candidate 
+			if(loser.get(loser.size() -1).ballot_list.size() != 0) {
+				for (int i =0; i < loser.get(loser.size() -1).ballot_list.size(); i++) {
 
-			for (int i =0; i < loser.get(loser.size() -1).ballot_list.size(); i++) {
-				
-				loser.get(loser.size() -1).ballot_list.get(i).choice++;
+					loser.get(loser.size() -1).ballot_list.get(i).choice++;
+					if(loser.get(loser.size() -1).ballot_list.get(i).vote_list.length != 0) {
+						for (int j =0; j <candidateCount; j++) {
+							System.out.println(loser.get(loser.size() -1).ballot_list.get(i).vote_list[j]);
+							if ((loser.get(loser.size() -1).ballot_list.get(i).vote_list[j] ==
+									 loser.get(loser.size() -1).ballot_list.get(i).choice )&& 
+									winner.contains(candidateList.get(j))) {
+								loser.get(loser.size() -1).ballot_list.get(i).choice++;
+								continue;
+							}
 
-				for (int j =0; j <loser.get(loser.size() -1).ballot_list.get(i).vote_list.length; j++) {
+							if (loser.get(loser.size() -1).ballot_list.get(i).vote_list[j] 
+									== loser.get(loser.size() -1).ballot_list.get(i).choice && 
+									!winner.contains(candidateList.get(j)) &&
+									loser.contains(candidateList.get(j))) {
+								candidateList.get(j).AddBallot(loser.get(loser.size()-1).ballot_list.get(i));
+							}
 
-					if (loser.get(loser.size() -1).ballot_list.get(i).vote_list[j] 
-							== loser.get(loser.size() -1).ballot_list.get(i).choice && 
-							winner.contains(candidateList.get(j))) {
-						loser.get(loser.size() -1).ballot_list.get(i).choice++;
-						continue;
-					}
-
-					if (loser.get(loser.size() -1).ballot_list.get(i).vote_list[j] 
-							== loser.get(loser.size() -1).ballot_list.get(i).choice && 
-							!winner.contains(candidateList.get(j)) &&
-							loser.contains(candidateList.get(j))) {
-						candidateList.get(j).AddBallot(ballotList.get(i));
-					}
-
-					for (int k =0 ; k< candidateList.size(); k ++) {
-						if (candidateList.get(k).count_ballot >= droop_q && 
-								!winner.contains(candidateList.get(k))) {
-							winner.add(candidateList.get(k));
-							loser.remove(candidateList.get(k));
+							for (int k =0 ; k< candidateList.size(); k ++) {
+								if (candidateList.get(k).count_ballot >= droop_q && 
+										!winner.contains(candidateList.get(k))) {
+									winner.add(candidateList.get(k));
+									loser.remove(candidateList.get(k));
+								}
+							}
 						}
 					}
 				}
@@ -224,7 +227,7 @@ public class DroopQuota extends VotingType {
 
 			for (int i =0; i< winner.size(); i++) {
 				System.out.println(winner.get(i));
-				printWriter.printf(winner.get(i).toString()+ "\nBallots received: ");
+				printWriter.printf("\n"+winner.get(i).toString()+ "\nBallots received: ");
 				for(int q =0; q< winner.get(i).ballot_list.size(); q++) {
 					printWriter.printf(winner.get(i).ballot_list.get(q).toString());
 				}
@@ -233,7 +236,7 @@ public class DroopQuota extends VotingType {
 			printWriter.printf("\n"+"Loser so far:");
 			for (int i =0; i< loser.size(); i++) {
 				System.out.println(loser.get(i));
-				printWriter.printf(loser.get(i).toString()+ "\nBallots received: ");
+				printWriter.printf("\n"+loser.get(i).toString()+ "\nBallots received: ");
 				for(int q =0; q< loser.get(i).ballot_list.size(); q++) {
 					printWriter.printf(loser.get(i).ballot_list.get(q).toString());
 				}
@@ -255,11 +258,11 @@ public class DroopQuota extends VotingType {
 		printWriter.close();
 
 	}
-	
-//	public static void main(String[] args) {
-//		DroopQuota dp = new DroopQuota(4,"/Users/frankchen/Desktop/team5/repo-Team5/Project1/testing/plurality_test_5000b_4c.csv");
-//		System.out.println("Run");
-//	}
+
+	//	public static void main(String[] args) {
+	//		DroopQuota dp = new DroopQuota(4,"/Users/frankchen/Desktop/team5/repo-Team5/Project1/testing/plurality_test_5000b_4c.csv");
+	//		System.out.println("Run");
+	//	}
 }
 
 

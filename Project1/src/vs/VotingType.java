@@ -30,9 +30,9 @@ abstract class VotingType {
 			candidateList.add(new Candidate(candidateNameList[i]));
 			candidateCount++;
 		}
-		System.out.println("create Callot objects\n");
+		System.out.println("create Ballot objects\n");
 		while ((st = br.readLine()) != null) {
-			String[] voteListString = st.split(",");
+			String[] voteListString = st.split(",",-1);
 			int[] votelist = new int[voteListString.length];
 			for (int i=0; i < voteListString.length; i++) {
 				if(!voteListString[i].equals("")) {

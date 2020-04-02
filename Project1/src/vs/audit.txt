@@ -1,92 +1,70 @@
 ===========================
 This is STV Droop Quota Algorithm
-Total seats: 4
-Total candidates: 7
+Total seats: 5
+Total candidates: 6
 Total Ballots: 20
 shuffle sption is off
 
 calculate the droop value
-Droop is: 5
+Droop is: 4
 1st Round:Assign each ballot to their first desire candidate
 1st Round finished
 Winners so far:
-Candidate name is: P
+Candidate name is: A
 
-Ballots received: 1 3 4 5 8 
-Candidate name is: F
+Ballots received: 1 3 5 7 
+Candidate name is: C
 
-Ballots received: 2 6 9 10 11 
-Candidate name is: D
-
-Ballots received: 7 12 13 14 16 
-Loser so far:
-Candidate name is: R
-
-Ballots received: 15 18 
+Ballots received: 2 6 9 10 
 Candidate name is: B
 
-Ballots received: 17 
-Candidate name is: J
+Ballots received: 4 8 11 12 
+Candidate name is: E
 
-Ballots received: 
-Candidate name is: I
+Ballots received: 13 15 17 19 
+Loser so far:
+Candidate name is: D
+
+Ballots received: 16 20 
+Candidate name is: F
 
 Ballots received: 
 2st Round:
-redistribute ballots the candidates with the least ballots
+redistribute ballots from the candidates with the least ballots
 2st Round finished
-Winners so far:Candidate name is: P
+Winners so far:
+Candidate name is: A
 
-Ballots received: 1 3 4 5 8 Candidate name is: F
+Ballots received: 1 3 5 7 
+Candidate name is: C
 
-Ballots received: 2 6 9 10 11 Candidate name is: D
+Ballots received: 2 6 9 10 
+Candidate name is: B
 
-Ballots received: 7 12 13 14 16 
-Loser so far:Candidate name is: R
+Ballots received: 4 8 11 12 
+Candidate name is: E
 
-Ballots received: 15 18 Candidate name is: B
+Ballots received: 13 15 17 19 
+Loser so far:
+Candidate name is: D
 
-Ballots received: 17 Candidate name is: J
-
-Ballots received: 
+Ballots received: 16 20 
 3st Round:
-redistribute ballots the candidates with the least ballots
+redistribute ballots from the candidates with the least ballots
 3st Round finished
-Winners so far:Candidate name is: P
+Winners so far:
+Candidate name is: A
 
-Ballots received: 1 3 4 5 8 Candidate name is: F
+Ballots received: 1 3 5 7 
+Candidate name is: C
 
-Ballots received: 2 6 9 10 11 Candidate name is: D
+Ballots received: 2 6 9 10 
+Candidate name is: B
 
-Ballots received: 7 12 13 14 16 
-Loser so far:Candidate name is: R
+Ballots received: 4 8 11 12 
+Candidate name is: E
 
-Ballots received: 15 18 Candidate name is: B
-
-Ballots received: 17 
-4st Round:
-redistribute ballots the candidates with the least ballots
-4st Round finished
-Winners so far:Candidate name is: P
-
-Ballots received: 1 3 4 5 8 Candidate name is: F
-
-Ballots received: 2 6 9 10 11 Candidate name is: D
-
-Ballots received: 7 12 13 14 16 
-Loser so far:Candidate name is: R
-
-Ballots received: 15 18 1 
-5st Round:
-redistribute ballots the candidates with the least ballots
-5st Round finished
-Winners so far:Candidate name is: P
-
-Ballots received: 1 3 4 5 8 Candidate name is: F
-
-Ballots received: 2 6 9 10 11 Candidate name is: D
-
-Ballots received: 7 12 13 14 16 
+Ballots received: 13 15 17 19 
 Loser so far:
 There is no more candidates in the loser list
 Result Generated
