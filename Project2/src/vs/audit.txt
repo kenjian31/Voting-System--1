@@ -1,0 +1,52 @@
+===========================
+This is Plurality Algorithm
+Total seats: 5
+Total candidates: 6
+Total Ballots: 1
+
+Assign each ballot to their desire candidate
+
+sort candidates by their vote count 
+
+There is a tie condition
+Winners:Candidate name is: 1
+Ballot percentage:  1.0
+Candidate name is: 6
+Ballot percentage:  0.0
+Candidate name is: 2
+Ballot percentage:  0.0
+Candidate name is: 5
+Ballot percentage:  0.0
+Candidate name is: 3
+Ballot percentage:  0.0
+
+Losers:Candidate name is: 4
+Ballot percentage:  0.0
+
+
+Detail of each candidate
+
+
+Candidate name is: 1
+
+Ballots: 1 
+
+Candidate name is: 2
+
+Ballots: 
+
+Candidate name is: 3
+
+Ballots: 
+
+Candidate name is: 4
+
+Ballots: 
+
+Candidate name is: 5
+
+Ballots: 
+
+Candidate name is: 6
+
+Ballots: 

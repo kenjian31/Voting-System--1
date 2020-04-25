@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 /**
  * This class functions as the STV Droop Quota Algorithm
  * it consists Shuffle() and GenerateAudit() methods
@@ -23,7 +24,7 @@ public class DroopQuota extends VotingType {
 	// winner and loser list
 	ArrayList<Candidate> winner = new ArrayList<Candidate>();
 	ArrayList<Candidate> loser = new ArrayList<Candidate>();
-
+	ArrayList<Ballot> invalid_ballot = new ArrayList<Ballot>(); 
 	/**
 	 * this is the constructor 
 	 * @param seats: total seats we have 
@@ -45,6 +46,51 @@ public class DroopQuota extends VotingType {
 			}
 		}
 	} 
+	
+	
+	// remove invalid ballots
+	public void RemoveInvalidBallot() throws IOException {
+		for (int i = ballotList.size()-1; i > 0; i--) {
+			Ballot temp = ballotList.get(i);
+			int zero_count = 0;
+			for (int j = 0; j < temp.vote_list.length;j++) {
+				if (temp.vote_list[j] == 0) {
+					zero_count++;
+				}
+			}
+			if (zero_count > candidateCount/2) {
+				invalid_ballot.add(temp);
+				ballotList.remove(temp);
+			}
+		}
+	}
+	
+	// output invalidate ballots report to display panel 
+	public void WriteInvalidBallot(String filename,String savelocation) throws IOException {
+		String auditFileLocation = savelocation + filename + ".txt";
+		FileWriter fileWriter = new FileWriter(auditFileLocation);
+		PrintWriter printWriter = new PrintWriter(fileWriter);
+		System.out.println("this is invalid ballot:\n");
+		printWriter.printf("this is invalid ballot:\n");
+		
+		System.out.println("invalid_ballot: " + invalid_ballot.size());
+		printWriter.print("invalid_ballot: " + invalid_ballot.size() + "\n");
+		for (int i = 0; i<invalid_ballot.size(); i++) {
+			for (int j = 0; j< invalid_ballot.get(i).vote_list.length; j++) {
+				System.out.print(invalid_ballot.get(i).vote_list[j]);
+				printWriter.print(invalid_ballot.get(i).vote_list[j]);
+			}
+			System.out.println();
+			printWriter.print("\n");
+		}
+		printWriter.close();
+	}
+	
+	public void NewAuditFile() throws IOException {
+		String current = new java.io.File( "." ).getCanonicalPath();
+		String testFileLocation1 = current+"/src/vs/deliverable_report.txt";
+		
+	}
 
 	/**
 	 * this is the GenerateAudit() method 
