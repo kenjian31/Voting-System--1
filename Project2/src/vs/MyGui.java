@@ -240,7 +240,7 @@ public class MyGui extends JFrame implements ActionListener {
 			if(!num5TxtFld.getText().equals("") && !num6TxtFld.getText().equals("") && vt!=null 
 					&& algList.getSelectedItem() == "STV") {
 				try {
-					vt.WriteInvalidBallot(num5TxtFld.getText(), num6TxtFld.getText());
+					vt.WriteInvalidBallot(num6TxtFld.getText(), num5TxtFld.getText());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -250,6 +250,7 @@ public class MyGui extends JFrame implements ActionListener {
 			} else {
 				area.append("Please check save file location, file name, algorithm and input file \n ");
 				area.append("Note: file location should be the absolute path \n ");
+				area.append("Note: file path should end with '/' ");
 			}
 			
 		}

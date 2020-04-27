@@ -154,6 +154,7 @@ public class DroopQuota extends VotingType {
 		
 		// calculate droop
 		int droop_q = (ballotList.size()/(total_seat+1))+1;
+		
 		for (int i =0; i < candidateList.size(); i++) {
 			loser.add(candidateList.get(i));
 		}
