@@ -28,6 +28,7 @@ abstract class VotingType {
 	public int total_seat;
 	public int shuffle_flag=1;
 	public int screen_input_flag = 1;
+	ArrayList<Ballot> invalid_ballot = new ArrayList<Ballot>(); 
 	// read file content
 	// parse candidates and ballots
 	// create candidates and ballots objects and store them in two lists
@@ -61,17 +62,25 @@ abstract class VotingType {
 		System.out.println("read file completed\n");
 		br.close();
 	}
-	public void ReadFromScreen(String s) throws IOException {
-		String current = new java.io.File( "." ).getCanonicalPath();
-		String screenFileLocation = current+"/src/testing/screen_input.cvs";
-		FileWriter fileWriter = new FileWriter(screenFileLocation);
+	// output invalidate ballots report to display panel 
+	public void WriteInvalidBallot(String filename,String savelocation) throws IOException {
+		String auditFileLocation = savelocation + filename + ".txt";
+		FileWriter fileWriter = new FileWriter(auditFileLocation);
 		PrintWriter printWriter = new PrintWriter(fileWriter);
+		System.out.println("this is invalid ballot:\n");
+		printWriter.printf("this is invalid ballot:\n");
 		
-		printWriter.printf(s);
+		System.out.println("invalid_ballot: " + invalid_ballot.size());
+		printWriter.print("invalid_ballot: " + invalid_ballot.size() + "\n");
+		for (int i = 0; i<invalid_ballot.size(); i++) {
+			for (int j = 0; j< invalid_ballot.get(i).vote_list.length; j++) {
+				System.out.print(invalid_ballot.get(i).vote_list[j]);
+				printWriter.print(invalid_ballot.get(i).vote_list[j]);
+			}
+			System.out.println();
+			printWriter.print("\n");
+		}
 		printWriter.close();
-	}
-	public void StopInputFromScreen() {
-		screen_input_flag =0;
 	}
 	/**
 	 * GenerateAudit() is an abstract method to be override

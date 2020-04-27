@@ -1,0 +1,110 @@
+===========================
+This is STV Droop Quota Algorithm
+Total seats: 4
+Total candidates: 7
+Total Ballots: 20
+shuffle sption is on
+
+calculate the droop value
+Droop is: 5
+1st Round:Assign each ballot to their first desire candidate
+1st Round finished
+Winners so far:
+Candidate name is: P
+
+Ballots received: 3 6 10 9 4 
+Candidate name is: F
+
+Ballots received: 12 13 7 1 2 
+Candidate name is: D
+
+Ballots received: 17 20 11 19 16 
+Loser so far:
+Candidate name is: R
+
+Ballots received: 8 5 
+Candidate name is: B
+
+Ballots received: 
+Candidate name is: J
+
+Ballots received: 
+Candidate name is: I
+
+Ballots received: 
+2st Round:
+redistribute ballots from the candidates with the least ballots
+2st Round finished
+Winners so far:
+Candidate name is: P
+
+Ballots received: 3 6 10 9 4 
+Candidate name is: F
+
+Ballots received: 12 13 7 1 2 
+Candidate name is: D
+
+Ballots received: 17 20 11 19 16 
+Loser so far:
+Candidate name is: R
+
+Ballots received: 8 5 
+Candidate name is: B
+
+Ballots received: 
+Candidate name is: J
+
+Ballots received: 
+3st Round:
+redistribute ballots from the candidates with the least ballots
+3st Round finished
+Winners so far:
+Candidate name is: P
+
+Ballots received: 3 6 10 9 4 
+Candidate name is: F
+
+Ballots received: 12 13 7 1 2 
+Candidate name is: D
+
+Ballots received: 17 20 11 19 16 
+Loser so far:
+Candidate name is: R
+
+Ballots received: 8 5 
+Candidate name is: B
+
+Ballots received: 
+4st Round:
+redistribute ballots from the candidates with the least ballots
+4st Round finished
+Winners so far:
+Candidate name is: P
+
+Ballots received: 3 6 10 9 4 
+Candidate name is: F
+
+Ballots received: 12 13 7 1 2 
+Candidate name is: D
+
+Ballots received: 17 20 11 19 16 
+Loser so far:
+Candidate name is: R
+
+Ballots received: 8 5 
+5st Round:
+redistribute ballots from the candidates with the least ballots
+5st Round finished
+Winners so far:
+Candidate name is: P
+
+Ballots received: 3 6 10 9 4 
+Candidate name is: F
+
+Ballots received: 12 13 7 1 2 
+Candidate name is: D
+
+Ballots received: 17 20 11 19 16 
+Loser so far:
+There is no more candidates in the loser list
+Result Generated

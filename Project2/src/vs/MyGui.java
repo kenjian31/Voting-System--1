@@ -20,6 +20,8 @@ import java.io.PrintWriter;
 
 import javax.swing.*;
 
+import com.sun.tracing.dtrace.ArgsAttributes;
+
 /**
  * interface
  * @author Pengyin Chen 
@@ -43,8 +45,13 @@ public class MyGui extends JFrame implements ActionListener {
 	private JButton send_button = new JButton("SendToRun");
 	private JButton stop_button = new JButton("Stop");
 	
-	private JTextField num1TxtFld = new JTextField(12);
-	private JTextField num3TxtFld = new JTextField(12);
+	private JLabel saveLbl = new JLabel("Save File Location:");
+	private JLabel nameLbl = new JLabel("Rename File: ");
+	private JTextField num5TxtFld = new JTextField(6);
+	private JTextField num6TxtFld = new JTextField(6);
+	
+	private JTextField num1TxtFld = new JTextField(6);
+	private JTextField num3TxtFld = new JTextField(6);
 	private JPanel p1 = new JPanel();
 	private JPanel p2 = new JPanel();
 	private JPanel p3 = new JPanel();
@@ -54,7 +61,7 @@ public class MyGui extends JFrame implements ActionListener {
 	private JButton restartBtn = new JButton("Restart");
 	private JButton exitBtn  =new JButton("Exit");
 	private JButton helpBtn  =new JButton("Help windows");
-	
+	private JButton sBtn  =new JButton("Save");
 	private JTextArea area = new JTextArea("\t \tWelcome to Voting System\n",20,45);
 	private JScrollPane scroll = new JScrollPane (area);
 	private JTextArea area2 = new JTextArea(20,45);
@@ -100,6 +107,11 @@ public class MyGui extends JFrame implements ActionListener {
 		p1.add(num3TxtFld);
 		p1.add(num4Lbl);
 		p1.add(sfList);
+		p2.add(saveLbl);
+		p2.add(num5TxtFld);
+		p2.add(nameLbl);
+		p2.add(num6TxtFld);
+		p2.add(sBtn);
 		p2.add(send_button);
 		p2.add(stop_button);
 		p2.add(inBtn);
@@ -191,33 +203,55 @@ public class MyGui extends JFrame implements ActionListener {
 			 }
 		} else if (e.getActionCommand() == "SendToRun"){
 			System.out.print("receiving new ballots\n");
-			if(flag == 1) {
-				String current = null;
-				try {
-					current = new java.io.File( "." ).getCanonicalPath();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+			if(!area2.getText().equals("")) {
+				if(flag == 1) {
+					String current = null;
+					try {
+						current = new java.io.File( "." ).getCanonicalPath();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					String screenFileLocation = current+"/src/vs/screen_input.cvs";
+					FileWriter fileWriter = null;
+					try {
+						fileWriter = new FileWriter(screenFileLocation);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					PrintWriter printWriter = new PrintWriter(fileWriter);
+
+					printWriter.printf(area2.getText());
+					printWriter.close();
+					num3TxtFld.setText(screenFileLocation);
+				} else {
+					area.append("Alread Stop Receiving New Input!! /n ");
 				}
-				String screenFileLocation = current+"/src/vs/screen_input.cvs";
-				FileWriter fileWriter = null;
-				try {
-					fileWriter = new FileWriter(screenFileLocation);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				PrintWriter printWriter = new PrintWriter(fileWriter);
-				
-				printWriter.printf(area2.getText());
-				printWriter.close();
-				num3TxtFld.setText(screenFileLocation);
 			} else {
-				area.append("Alread Stop Receiving New Input!! /n ");
+				
+				System.out.print("Please enter some ballots info to be received");
 			}
 		} else if(e.getActionCommand() == "Stop") {
 			flag =0;
-			area.append("stop receiving new ballots\n");
+			area.append("stop receiving new ballots from screen\n");
+			
+		} else if (e.getActionCommand() == "Save"){
+			if(!num5TxtFld.getText().equals("") && !num6TxtFld.getText().equals("") && vt!=null 
+					&& algList.getSelectedItem() == "STV") {
+				try {
+					vt.WriteInvalidBallot(num5TxtFld.getText(), num6TxtFld.getText());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+			} else {
+				area.append("Please check save file location, file name, algorithm and input file \n ");
+				area.append("Note: file location should be the absolute path \n ");
+			}
+			
 		}
 		
 	}
@@ -231,6 +265,7 @@ public class MyGui extends JFrame implements ActionListener {
 		browse.addActionListener(this);
 		stop_button.addActionListener(this);
 		send_button.addActionListener(this);
+		sBtn.addActionListener(this);
 		PrintStream out = new PrintStream( new TextAreaOutputStream( area ) );
 
 		// redirect standard output stream to the TextAreaOutputStream

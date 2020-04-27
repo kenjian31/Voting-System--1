@@ -5,6 +5,10 @@
  */
 package vs;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 /**
@@ -162,5 +166,69 @@ class DroopQuotaTest {
 
 				
 	}
+	
+
+
+	@Test
+	/**
+	 * test RemoveInvalidBallot() method 
+	 * 2 test file 
+	 * test the final winner 
+	 * @throws IOException
+	 */
+	void DroopQuotaRemoveInvalidBallot() throws IOException {
+		String current = new java.io.File( "." ).getCanonicalPath();
+		String testFileLocation1 = current+"/testing/DQ_test_Invalid_1.csv";
+		String testFileLocation = current+"/testing/DQ_test_Invalid_small.csv";
+
+	    DroopQuota myTest1 = new DroopQuota(2, testFileLocation1);
+	    assertEquals(myTest1.invalid_ballot.size(), 0);
+	    myTest1.shuffle_flag = 0;
+	    myTest1.ReadFile();
+//	    myTest1.GenerateAudit();
+	    myTest1.RemoveInvalidBallot();
+	    assertEquals(myTest1.invalid_ballot.size(), 2284);
+	    
+	    DroopQuota myTest2 = new DroopQuota(2, testFileLocation);
+	    assertEquals(myTest2.invalid_ballot.size(), 0);
+	    myTest2.shuffle_flag = 0;
+	    myTest2.ReadFile();
+//	    myTest2.GenerateAudit();
+	    myTest2.RemoveInvalidBallot();
+	    assertEquals(myTest2.invalid_ballot.size(), 34);
+	}
+	@Test
+	/**
+	 * test RemoveInvalidBallot() method 
+	 * 2 test file 
+	 * test the final winner 
+	 * @throws IOException
+	 */
+	void DroopQuotaWriteInvalidBallot() throws IOException {
+		String current = new java.io.File( "." ).getCanonicalPath();
+		String testFileLocation1 = current+"/testing/DQ_test_Invalid_1.csv";
+
+	    DroopQuota myTest1 = new DroopQuota(2, testFileLocation1);
+	    myTest1.shuffle_flag = 0;
+	    myTest1.ReadFile();
+	    myTest1.RemoveInvalidBallot();
+	    String fileName = "/invalid_";
+	    String filePath =current;
+	    myTest1.WriteInvalidBallot(fileName, filePath);
+	    assertEquals(myTest1.invalid_ballot.size(), 2284);
+	    
+	    String fileLocation = filePath + fileName+ ".txt";
+		File file = new File(fileLocation); 
+		BufferedReader br = new BufferedReader(new FileReader(file)); 
+		String st;
+		int line_count = 0;
+		while ((st = br.readLine()) != null) {
+			line_count++;
+		}
+		br.close();
+		assertEquals(line_count, 2286);
+	}
+
+
 
 }
