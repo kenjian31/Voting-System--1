@@ -122,6 +122,7 @@ public class MyGui extends JFrame implements ActionListener {
 
 	}
 	public void actionPerformed(ActionEvent e){
+		// help window
 		if (e.getActionCommand() == "Help windows") {
 		JOptionPane.showMessageDialog(helpBtn,
 		        "Info of how to use this program!!!\n\n1. Inpput information\n"
@@ -138,7 +139,7 @@ public class MyGui extends JFrame implements ActionListener {
 		        "Info",
 				JOptionPane.INFORMATION_MESSAGE);
 		
-		} else if (e.getActionCommand() == "Import") {
+		} else if (e.getActionCommand() == "Import") { // import command
 			if (!num3TxtFld.getText().equals("") && !num1TxtFld.getText().equals("")) {
 				if(algList.getSelectedItem() == "STV") {
 					int seats = Integer.parseInt(num1TxtFld.getText());
@@ -166,7 +167,7 @@ public class MyGui extends JFrame implements ActionListener {
 				area.append("Import File Failed\n");
 				area.append("Please Check Your Seats and File Name input\n");
 		    }
-		} else if (e.getActionCommand() == "GenerateAudit") {
+		} else if (e.getActionCommand() == "GenerateAudit") { // generate audit audit
 			if(vt != null) {
 				area.append("========================\n");
 				area.append("Genrate Audit.....\n");
@@ -188,11 +189,11 @@ public class MyGui extends JFrame implements ActionListener {
 				area.append("Please Import File First\n");
 			}
 			
-		} else if (e.getActionCommand() == "Restart") {
+		} else if (e.getActionCommand() == "Restart") { // restart command
 			num1TxtFld.setText("");
 			num3TxtFld.setText("");
 			area.setText("\t\t\t Welcome to Voting System\n");
-		} else if(e.getActionCommand() == "Exit") {
+		} else if(e.getActionCommand() == "Exit") { // exit command
 			System.exit(0);
 		} else if (e.getActionCommand() == "Browse File") {
 			 JFileChooser fileChooser = new JFileChooser();
@@ -201,7 +202,7 @@ public class MyGui extends JFrame implements ActionListener {
 				 File selectedFile = fileChooser.getSelectedFile();
 				 num3TxtFld.setText(selectedFile.getAbsolutePath());
 			 }
-		} else if (e.getActionCommand() == "SendToRun"){
+		} else if (e.getActionCommand() == "SendToRun"){ // send ballots to run
 			System.out.print("receiving new ballots\n");
 			if(!area2.getText().equals("")) {
 				if(flag == 1) {
@@ -232,11 +233,11 @@ public class MyGui extends JFrame implements ActionListener {
 				
 				System.out.print("Please enter some ballots info to be received");
 			}
-		} else if(e.getActionCommand() == "Stop") {
+		} else if(e.getActionCommand() == "Stop") { // stop to receive
 			flag =0;
 			area.append("stop receiving new ballots from screen\n");
 			
-		} else if (e.getActionCommand() == "Save"){
+		} else if (e.getActionCommand() == "Save"){ // save file
 			if(!num5TxtFld.getText().equals("") && !num6TxtFld.getText().equals("") && vt!=null 
 					&& algList.getSelectedItem() == "STV") {
 				try {

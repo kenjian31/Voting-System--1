@@ -48,7 +48,10 @@ public class DroopQuota extends VotingType {
 	} 
 	
 	
-	// remove invalid ballots
+	/**
+	 * RemoveInvalidBallot() to remove identify all invalid ballots
+	 * @throws IOException write file may cause exception 
+	 */
 	public void RemoveInvalidBallot() throws IOException {
 		for (int i = ballotList.size()-1; i > 0; i--) {
 			Ballot temp = ballotList.get(i);
@@ -58,6 +61,9 @@ public class DroopQuota extends VotingType {
 					zero_count++;
 				}
 			}
+			// if this ballot has less than 1/2 candidates in his vote list
+			// eliminate from ballot list 
+			// move to invalid ballot
 			if (zero_count > candidateCount/2) {
 				invalid_ballot.add(temp);
 				ballotList.remove(temp);
